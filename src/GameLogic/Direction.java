@@ -1,13 +1,13 @@
-package GameState;
+package GameLogic;
 
 public enum Direction {
     // Format: Game.Direction(evenDeltaRow, evenDeltaCol, oddDeltaRow, oddDeltaCol)
-    UP(-1, 0, -1, 0),
-    UPRIGHT(-1, 1, 0, 1),
-    DOWNRIGHT(0, 1, 1, 1),
-    DOWN(1, 0, 1, 0),
-    DOWNLEFT(0, -1, 1, -1),
-    UPLEFT(-1, -1, 0, -1)
+    up(-1, 0, -1, 0),
+    upright(-1, 1, 0, 1),
+    downright(0, 1, 1, 1),
+    down(1, 0, 1, 0),
+    downleft(0, -1, 1, -1),
+    upleft(-1, -1, 0, -1)
 ;
 
     private final int evenDeltaRow;

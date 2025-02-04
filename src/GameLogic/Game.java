@@ -1,4 +1,4 @@
-package GameState;
+package GameLogic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Game {
     private static Game instance; // Singleton instance
     private Board board;
-    private GameState gameState;
+    private isRunning isRunning;
     private GameMode gameMode;
     private int currentTurn;
     private int maxTurns;
@@ -22,7 +22,7 @@ public class Game {
     private Game(ConfigLoader config, GameMode gameMode) {
         this.config = config;
         this.board = new Board(9, 9);
-        this.gameState = GameState.RUNNING;
+        this.isRunning = isRunning.RUNNING;
         this.currentTurn = 1;
         this.maxTurns = (int) config.maxTurns;
         this.players = new ArrayList<>();
@@ -96,14 +96,14 @@ public class Game {
 
     // The main game loop.
     public void start() {
-        while (gameState == GameState.RUNNING && currentTurn <= maxTurns) {
+        while (isRunning == isRunning.RUNNING && currentTurn <= maxTurns) {
             // Alternate turns between the players.
             for (Player player : players) {
                 if (!checkEndGame()) {
                     System.out.println("=== Turn " + currentTurn + " ===");
                     performPlayerTurn(player);
                 }else {
-                    gameState = GameState.ENDED;
+                    isRunning = isRunning.ENDED;
                     break;
                 }
                 currentTurn++;
@@ -189,8 +189,8 @@ public class Game {
             while (!turnEnded) {
                 System.out.println("Enter command for minion " + minion.order +
                         " (move, shoot, nearby, ally, opponent, or done):");
-                System.out.println("  For move: 'move DIRECTION' (e.g., move UP, move DOWNLEFT)");
-                System.out.println("  For shoot: 'shoot DIRECTION EXPENDITURE' (e.g., shoot UPRIGHT 10)");
+                System.out.println("  For move: 'move DIRECTION' (e.g., move UP, move downleft)");
+                System.out.println("  For shoot: 'shoot DIRECTION EXPENDITURE' (e.g., shoot upright 10)");
                 System.out.println("  For nearby: 'nearby DIRECTION' (e.g., nearby DOWN)");
                 System.out.println("  For ally: type 'ally'");
                 System.out.println("  For opponent: type 'opponent'");
@@ -208,7 +208,7 @@ public class Game {
                     case "move":
                         if (tokens.length >= 2) {
                             try {
-                                Direction dir = Direction.valueOf(tokens[1].toUpperCase());
+                                Direction dir = Direction.valueOf(tokens[1]);
                                 minion.move(dir);
                                 board.printBoard();
                             } catch (IllegalArgumentException e) {
@@ -222,7 +222,7 @@ public class Game {
                     case "shoot":
                         if (tokens.length >= 3) {
                             try {
-                                Direction dir = Direction.valueOf(tokens[1].toUpperCase());
+                                Direction dir = Direction.valueOf(tokens[1]);
                                 int expenditure = Integer.parseInt(tokens[2]);
                                 minion.shoot(dir, expenditure);
                                 board.printBoard();
@@ -239,7 +239,7 @@ public class Game {
                     case "nearby":
                         if (tokens.length >= 2) {
                             try {
-                                Direction dir = Direction.valueOf(tokens[1].toUpperCase());
+                                Direction dir = Direction.valueOf(tokens[1]);
                                 long info = minion.nearby(dir);
                                 System.out.println("Nearby(" + dir + ") returns: " + info);
                                 board.printBoard();

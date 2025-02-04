@@ -1,4 +1,4 @@
-package GameState;
+package GameLogic;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package GameState;
+package GameLogic;
 //add Strategy
 public class Minion implements MinionInterface {
     protected int hp;

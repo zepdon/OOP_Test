@@ -1,4 +1,4 @@
-package GameState;
+package GameLogic;
 
 public enum GameMode {
     DUEL,

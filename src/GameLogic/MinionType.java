@@ -1,4 +1,4 @@
-package GameState;
+package GameLogic;
 
 public class MinionType {
     private String name;
